@@ -3,7 +3,7 @@
   "title": "Sparktable",
   "description": "Create sparktables to easily visualize data",
   "version": "0.1.0",
-  "homepage": "https://github.com/coryforsyth/sparktable",
+  "homepage": "https://github.com/bantic/sparktable-jquery-plugin",
   "author": {
     "name": "Cory Forsyth",
     "email": "cory.forsyth@gmail.com",
@@ -11,17 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/coryforsyth/sparktable.git"
+    "url": "git://github.com/bantic/sparktable-jquery-plugin.git"
   },
-  "bugs": "https://github.com/coryforsyth/sparktable/issues",
+  "bugs": "https://github.com/bantic/sparktable-jquery-plugin/issues",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/coryforsyth/sparktable/blob/master/LICENSE-MIT"
+      "url": "https://github.com/bantic/sparktable-jquery-plugin/blob/master/LICENSE-MIT"
     }
   ],
   "dependencies": {
     "jquery": "*"
   },
-  "keywords": []
+  "keywords": ["visualization","table","tufte","sparkline"]
 }
