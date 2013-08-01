@@ -22,7 +22,7 @@
 
   var tableHTML = "<table id='table'>" +
     "<tr>" + "<th>head1</th>" + "<th>head2</th>" + "</tr>" +
-    "<tr>" + "<td>1</td>"      + "<td>4</td>"     + "</tr>" +
+    "<tr>" + "<td>1<span class='sparktable'>100</span></td>"      + "<td>4</td>"     + "</tr>" +
     "</table>";
 
   var includesText = function(string, includedText){

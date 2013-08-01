@@ -22,20 +22,14 @@
 
     /* finds the numeric value from the given el's html */
     valuefierFn: function( el ) {
-      console.log(el);
-      var html = $(el).html();
-      console.log('html',html,'innerHTML',$(el).innerHTML);
-      var res = parseInt(html, 10);
-      console.log('string',html,res);
-      return res;
+      return parseInt( $(el).html() , 10);
     },
 
     /* returns a percentage (float) from the val, max and min */
     percentageFn: function(val, max, min) {
       if (!min) { min = 0; }
 
-      var res = Math.round( 100 * (val - min) / (max - min) );
-      return res;
+      return Math.round( 100 * (val - min) / (max - min) );
     },
 
     /* input: percentage, returns a span representing that percentage */
