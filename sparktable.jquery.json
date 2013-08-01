@@ -1,0 +1,27 @@
+{
+  "name": "sparktable",
+  "title": "Sparktable",
+  "description": "Create sparktables to easily visualize data",
+  "version": "0.1.0",
+  "homepage": "https://github.com/coryforsyth/sparktable",
+  "author": {
+    "name": "Cory Forsyth",
+    "email": "cory.forsyth@gmail.com",
+    "url": "http://coryforsyth.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coryforsyth/sparktable.git"
+  },
+  "bugs": "https://github.com/coryforsyth/sparktable/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/coryforsyth/sparktable/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}
