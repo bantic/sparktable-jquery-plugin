@@ -1,11 +1,6 @@
-/*
- * sparktable
- * https://github.com/coryforsyth/sparktable
- *
- * Copyright (c) 2013 Cory Forsyth
- * Licensed under the MIT license.
- */
-
+/*! Sparktable - v0.1.0 - 2013-08-01
+* https://github.com/bantic/sparktable-jquery-plugin
+* Copyright (c) 2013 Cory Forsyth; Licensed MIT */
 (function($) {
 
   var defaultOpts = {
@@ -29,14 +24,18 @@
     percentageFn: function(val, max, min) {
       if (!min) { min = 0; }
 
-      return Math.round( 100 * (val - min) / (max - min) );
+      return Math.round( 100 * (val - min) / (max - min) ) / 100.0;
     },
 
-    /* input: percentage, returns a span representing that percentage */
-    decoratorElFn: function(percentage) {
-      return "<span class='sparktable-percentage'>" +
-             percentage +
-             "</span>";
+    /* input: percentage, returns a element representing that percentage */
+    decoratorElFn: function(parentEl, percentage) {
+      var parentHeight     = $(parentEl).height(),
+          sparktableHeight = parentHeight * percentage;
+
+      return "<div class='sparktable-percentage' " +
+                   // "data-sparktable-percentage='" + percentage + "' " +
+                   "style='height:" + percentage*80 + "%'>" + 
+             "</div>";
     }
   };
 
@@ -83,7 +82,7 @@
       value = valuefierFn(item);
       percentage = percentageFn(value, maxValue);
 
-      $(item).append( decoratorElFn(percentage) );
+      item.append( decoratorElFn(item, percentage) );
     }
   };
 
@@ -92,6 +91,8 @@
   $.fn.sparktable = function(opts) {
     var collection = [],
         maxValue;
+
+    $('.sparktable-percentage').remove();
 
     opts = $.extend({}, defaultOpts, opts || {});
 
