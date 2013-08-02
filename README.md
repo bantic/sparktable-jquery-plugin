@@ -5,8 +5,8 @@ Create sparktables to easily visualize data
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/coryforsyth/sparktable/master/dist/sparktable.min.js
-[max]: https://raw.github.com/coryforsyth/sparktable/master/dist/sparktable.js
+[min]: https://raw.github.com/bantic/sparktable-jquery-plugin/master/dist/sparktable.min.js
+[max]: https://raw.github.com/bantic/sparktable-jquery-plugin/master/dist/sparktable.js
 
 In your web page:
 
@@ -15,7 +15,7 @@ In your web page:
 <script src="dist/sparktable.min.js"></script>
 <script>
 jQuery(function($) {
-  $.awesome(); // "awesome"
+  $('#table').sparktable();
 });
 </script>
 ```
