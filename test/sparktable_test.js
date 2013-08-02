@@ -22,7 +22,7 @@
 
   var tableHTML = "<table id='table'>" +
     "<tr>" + "<th>head1</th>" + "<th>head2</th>" + "</tr>" +
-    "<tr>" + "<td>1<span class='sparktable'>100</span></td>"      + "<td>4</td>"     + "</tr>" +
+    "<tr>" + "<td>1</td>"      + "<td>4</td>"     + "</tr>" +
     "</table>";
 
   var includesText = function(string, includedText){
@@ -55,15 +55,22 @@
     elementIncludesText( 'td:eq(0)', '1');
   });
 
-  test('adds a span to the tds', function(){
-    elementIncludesText( 'td:eq(0)', '<span');
-    elementIncludesText( 'td:eq(0)', '/span>');
+  test('adds an el with class "sparktable-percentage" to the tds', function(){
+    elementIncludesText( 'td:eq(0)', 'class="sparktable-percentage"' );
   });
 
   test('includes the percentage in the tds', function(){
     elementIncludesText('td:eq(0)', '25');
     elementIncludesText('td:eq(1)', '100');
   });
+
+
+  // test is chainable
+  // test can highlight max
+  // test can change width
+  // test can change color
+  // test is idempotent
+  // test can ignore some tds using function
 
 
   /*
