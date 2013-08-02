@@ -1,0 +1,12 @@
+.sparktable-percentage {
+  display: inline-block;
+  background-color: blue;
+  width: 5px;
+  margin-left: 5px;
+}
+
+td {
+  height: 30px;
+  border: 1px solid gray;
+  /*vertical-align: bottom;*/
+}
