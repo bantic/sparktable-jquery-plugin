@@ -4,6 +4,8 @@
 (function($) {
 
   var defaultOpts = {
+    namespace: 'sparktable',
+
     /* the selector to use to find elements from the table */
     tdSelector: 'td',
 
@@ -28,13 +30,13 @@
     },
 
     /* input: percentage, returns a element representing that percentage */
-    decoratorElFn: function(parentEl, percentage) {
-      var parentHeight     = $(parentEl).height(),
-          sparktableHeight = parentHeight * percentage;
+    decoratorElFn: function(parentEl, percentage, namespace) {
+      var sparktableHeight = percentage * 80;
 
-      return "<div class='sparktable-percentage' " +
-                   // "data-sparktable-percentage='" + percentage + "' " +
-                   "style='height:" + percentage*80 + "%'>" + 
+
+      return "<div class='" + namespace + "-percentage' " +
+                   "data-sparktable-percentage='" + percentage + "' " +
+                   "style='height:" + sparktableHeight + "%'>" +
              "</div>";
     }
   };
@@ -74,7 +76,8 @@
                                     maxValue,
                                     valuefierFn,
                                     percentageFn,
-                                    decoratorElFn ) {
+                                    decoratorElFn,
+                                    namespace ) {
     var item, value, percentage;
 
     for (var i = 0; i < collection.length; i++) {
@@ -82,7 +85,7 @@
       value = valuefierFn(item);
       percentage = percentageFn(value, maxValue);
 
-      item.append( decoratorElFn(item, percentage) );
+      item.append( decoratorElFn(item, percentage, namespace) );
     }
   };
 
@@ -92,9 +95,9 @@
     var collection = [],
         maxValue;
 
-    $('.sparktable-percentage').remove();
-
     opts = $.extend({}, defaultOpts, opts || {});
+
+    $('.' + opts.namespace + '-percentage').remove();
 
     collection = getCollection($(this),
                                opts.tdSelector,
@@ -107,7 +110,8 @@
                         maxValue,
                         opts.valuefierFn,
                         opts.percentageFn,
-                        opts.decoratorElFn );
+                        opts.decoratorElFn,
+                        opts.namespace );
 
 
     return this;

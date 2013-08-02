@@ -59,9 +59,21 @@
     elementIncludesText( 'td:eq(0)', 'class="sparktable-percentage"' );
   });
 
-  test('includes the percentage in the tds', function(){
-    elementIncludesText('td:eq(0)', '25');
-    elementIncludesText('td:eq(1)', '100');
+  test('includes the percentage in the tds as a float', function(){
+    elementIncludesText('td:eq(0)', '.25');
+    elementIncludesText('td:eq(1)', '1');
+  });
+
+  test('is idempotent', function(){
+    equal( $(this.table).find('td:eq(0) .sparktable-percentage').length,
+           1,
+           "Should have only one div of class .sparktable-percentage" );
+
+    $(this.table).sparktable();
+
+    equal( $(this.table).find('td:eq(0) .sparktable-percentage').length,
+           1,
+           "Should have only one div of class .sparktable-percentage" );
   });
 
 
