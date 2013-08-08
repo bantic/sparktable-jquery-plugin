@@ -76,13 +76,27 @@
            "Should have only one div of class .sparktable-percentage" );
   });
 
+  /*
+  test('is chainable', function(){
+    equal( $(this.table).sparktable(), $(this.table), 'should be chainable' );
+  });
+  */
 
-  // test is chainable
+  test('can set width in opts', function(){
+    var opts = { width: '12px' };
+    $(this.table).sparktable(opts);
+
+    var elem = $(this.table).find('td:eq(0) .sparktable-percentage');
+    ok(elem.length);
+    equal( elem.css('width'), '12px', 'width should be settable');
+  });
+
+
   // test can highlight max
   // test can change width
   // test can change color
   // test is idempotent
-  // test can ignore some tds using function
+  // test can ignore some tds using data- attribute (or class)
   // test ignores tds with no value (parseInt returns NaN)
 
 
