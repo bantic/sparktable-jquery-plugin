@@ -1,9 +1,14 @@
+/*! Sparktable - v0.1.0 - 2013-08-07
+* https://github.com/bantic/sparktable-jquery-plugin
+* Copyright (c) 2013 Cory Forsyth; Licensed MIT */
 /*! Sparktable - v0.1.0 - 2013-08-01
 * https://github.com/bantic/sparktable-jquery-plugin
 * Copyright (c) 2013 Cory Forsyth; Licensed MIT */
 (function($) {
 
   var defaultOpts = {
+    namespace: 'sparktable',
+
     /* the selector to use to find elements from the table */
     tdSelector: 'td',
 
@@ -24,17 +29,18 @@
     percentageFn: function(val, max, min) {
       if (!min) { min = 0; }
 
-      return Math.round( 100 * (val - min) / (max - min) );
+      return Math.round( 100 * (val - min) / (max - min) ) / 100.0;
     },
 
     /* input: percentage, returns a element representing that percentage */
-    decoratorElFn: function(parentEl, percentage) {
-      var parentHeight     = $(parentEl).height(),
-          sparktableHeight = parentHeight * percentage;
+    decoratorElFn: function(parentEl, percentage, namespace) {
+      var sparktableHeight = percentage * 80;
+      var styles = "display: inline-block; background-color: blue; width: 5px; margin-left: 5px;";
+      styles = styles + "height:" + sparktableHeight + "%";
 
-      return "<div class='sparktable-percentage' " +
+      return "<div class='" + namespace + "-percentage' " +
                    "data-sparktable-percentage='" + percentage + "' " +
-                   "style='height:" + sparktableHeight + "'>" + 
+                   "style='" + styles + "'>" +
              "</div>";
     }
   };
@@ -74,7 +80,8 @@
                                     maxValue,
                                     valuefierFn,
                                     percentageFn,
-                                    decoratorElFn ) {
+                                    decoratorElFn,
+                                    namespace ) {
     var item, value, percentage;
 
     for (var i = 0; i < collection.length; i++) {
@@ -82,7 +89,7 @@
       value = valuefierFn(item);
       percentage = percentageFn(value, maxValue);
 
-      $(item).append( decoratorElFn(item, percentage) );
+      item.append( decoratorElFn(item, percentage, namespace) );
     }
   };
 
@@ -93,6 +100,8 @@
         maxValue;
 
     opts = $.extend({}, defaultOpts, opts || {});
+
+    $('.' + opts.namespace + '-percentage').remove();
 
     collection = getCollection($(this),
                                opts.tdSelector,
@@ -105,7 +114,8 @@
                         maxValue,
                         opts.valuefierFn,
                         opts.percentageFn,
-                        opts.decoratorElFn );
+                        opts.decoratorElFn,
+                        opts.namespace );
 
 
     return this;

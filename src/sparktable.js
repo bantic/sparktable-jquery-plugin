@@ -32,11 +32,12 @@
     /* input: percentage, returns a element representing that percentage */
     decoratorElFn: function(parentEl, percentage, namespace) {
       var sparktableHeight = percentage * 80;
-
+      var styles = "display: inline-block; background-color: blue; width: 5px; margin-left: 5px;";
+      styles = styles + "height:" + sparktableHeight + "%";
 
       return "<div class='" + namespace + "-percentage' " +
                    "data-sparktable-percentage='" + percentage + "' " +
-                   "style='height:" + sparktableHeight + "%'>" +
+                   "style='" + styles + "'>" +
              "</div>";
     }
   };

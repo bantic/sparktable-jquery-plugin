@@ -83,6 +83,7 @@
   // test can change color
   // test is idempotent
   // test can ignore some tds using function
+  // test ignores tds with no value (parseInt returns NaN)
 
 
   /*
