@@ -1,7 +1,7 @@
-/*! Sparktable - v0.1.0 - 2013-08-07
+/*! Sparktable - v0.1.0 - 2013-11-03
 * https://github.com/bantic/sparktable-jquery-plugin
 * Copyright (c) 2013 Cory Forsyth; Licensed MIT */
-/*! Sparktable - v0.1.0 - 2013-08-01
+/*! Sparktable - v0.1.0 - 2013-08-04
 * https://github.com/bantic/sparktable-jquery-plugin
 * Copyright (c) 2013 Cory Forsyth; Licensed MIT */
 (function($) {
@@ -22,7 +22,9 @@
 
     /* finds the numeric value from the given el's html */
     valuefierFn: function( el ) {
-      return parseInt( $(el).html() , 10);
+      var res = parseInt( $(el).html() , 10);
+      if (isNaN(res)) { return null; }
+      return res;
     },
 
     /* returns a percentage (float) from the val, max and min */
@@ -33,16 +35,21 @@
     },
 
     /* input: percentage, returns a element representing that percentage */
-    decoratorElFn: function(parentEl, percentage, namespace) {
+    decoratorElFn: function(parentEl, percentage, namespace, width) {
       var sparktableHeight = percentage * 80;
-      var styles = "display: inline-block; background-color: blue; width: 5px; margin-left: 5px;";
-      styles = styles + "height:" + sparktableHeight + "%";
+      var styles = "display: inline-block; background-color: blue; width: " +
+        width + "; margin-left: 5px;";
+      var fontHeight = parseInt($(parentEl).css('font-size'), 10);
+      sparktableHeight = fontHeight * percentage;
+      styles = styles + "height:" + sparktableHeight + "px";
 
       return "<div class='" + namespace + "-percentage' " +
                    "data-sparktable-percentage='" + percentage + "' " +
                    "style='" + styles + "'>" +
              "</div>";
-    }
+    },
+
+    width: '5px'
   };
 
 
@@ -66,6 +73,8 @@
     for (var i = 0; i < collection.length; i++) {
       value = valuefierFn(collection[i]);
 
+      if (!value) { continue; }
+
       if (!maxValue) {
         maxValue = value;
       } else {
@@ -81,15 +90,18 @@
                                     valuefierFn,
                                     percentageFn,
                                     decoratorElFn,
-                                    namespace ) {
+                                    namespace,
+                                    width ) {
     var item, value, percentage;
 
     for (var i = 0; i < collection.length; i++) {
       item  = collection[i];
       value = valuefierFn(item);
+      if (!value) { continue; }
+
       percentage = percentageFn(value, maxValue);
 
-      item.append( decoratorElFn(item, percentage, namespace) );
+      item.append( decoratorElFn(item, percentage, namespace, width) );
     }
   };
 
@@ -115,7 +127,8 @@
                         opts.valuefierFn,
                         opts.percentageFn,
                         opts.decoratorElFn,
-                        opts.namespace );
+                        opts.namespace,
+                        opts.width );
 
 
     return this;
