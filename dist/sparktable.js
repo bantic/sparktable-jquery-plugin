@@ -1,4 +1,4 @@
-/*! Sparktable - v0.1.0 - 2013-11-03
+/*! Sparktable - v0.1.0 - 2013-11-13
 * https://github.com/bantic/sparktable-jquery-plugin
 * Copyright (c) 2013 Cory Forsyth; Licensed MIT */
 /*! Sparktable - v0.1.0 - 2013-08-04
@@ -34,14 +34,22 @@
       return Math.round( 100 * (val - min) / (max - min) ) / 100.0;
     },
 
+    /* returns the pixel height to use for the spark bar */
+    heightFn: function(percentage, fontHeight){
+      var height = percentage * 80;
+      height = fontHeight * percentage;
+
+      return height;
+    },
+
     /* input: percentage, returns a element representing that percentage */
-    decoratorElFn: function(parentEl, percentage, namespace, width) {
-      var sparktableHeight = percentage * 80;
+    decoratorElFn: function(parentEl, percentage, namespace, width, heightFn) {
+      var fontHeight = parseInt($(parentEl).css('font-size'), 10);
+      var sparkHeight = heightFn(percentage, fontHeight);
+
       var styles = "display: inline-block; background-color: blue; width: " +
         width + "; margin-left: 5px;";
-      var fontHeight = parseInt($(parentEl).css('font-size'), 10);
-      sparktableHeight = fontHeight * percentage;
-      styles = styles + "height:" + sparktableHeight + "px";
+      styles = styles + "height:" + sparkHeight + "px";
 
       return "<div class='" + namespace + "-percentage' " +
                    "data-sparktable-percentage='" + percentage + "' " +
@@ -91,7 +99,8 @@
                                     percentageFn,
                                     decoratorElFn,
                                     namespace,
-                                    width ) {
+                                    width,
+                                    heightFn ) {
     var item, value, percentage;
 
     for (var i = 0; i < collection.length; i++) {
@@ -101,7 +110,7 @@
 
       percentage = percentageFn(value, maxValue);
 
-      item.append( decoratorElFn(item, percentage, namespace, width) );
+      item.append( decoratorElFn(item, percentage, namespace, width, heightFn) );
     }
   };
 
@@ -128,7 +137,8 @@
                         opts.percentageFn,
                         opts.decoratorElFn,
                         opts.namespace,
-                        opts.width );
+                        opts.width,
+                        opts.heightFn );
 
 
     return this;
